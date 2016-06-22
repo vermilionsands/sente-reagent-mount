@@ -1,4 +1,4 @@
-(defproject sente-reagent-2 "0.1.0-SNAPSHOT"
+(defproject sente-reagent-mount "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -6,6 +6,7 @@
 
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.8.51" :scope "provided"]
+                 [org.clojure/core.async "0.2.374"]
                  [ring "1.4.0"]
                  [ring/ring-defaults "0.2.0"]
                  [bk/ring-gzip "0.1.1"]
@@ -13,7 +14,9 @@
                  [compojure "1.5.0"]
                  [environ "1.0.3"]
                  [http-kit "2.1.19"]
-                 [reagent "0.5.1"]]
+                 [reagent "0.5.1"]
+                 [mount "0.1.10"]
+                 [com.taoensso/sente "1.8.1"]]
 
   :plugins [[lein-cljsbuild "1.1.3"]
             [lein-environ "1.0.3"]]
@@ -26,10 +29,10 @@
 
   :clean-targets ^{:protect false} [:target-path :compile-path "resources/public/js"]
 
-  :uberjar-name "sente-reagent-2.jar"
+  :uberjar-name "sente-reagent-mount.jar"
 
   ;; Use `lein run` if you just want to start a HTTP server, without figwheel
-  :main sente-reagent-2.server
+  :main sente-reagent-mount.server
 
   ;; nREPL by default starts in the :main namespace, we want to start in `user`
   ;; because that's where our development helper functions like (run) and
@@ -42,11 +45,11 @@
 
                 :figwheel true
                 ;; Alternatively, you can configure a function to run every time figwheel reloads.
-                ;; :figwheel {:on-jsload "sente-reagent-2.core/on-figwheel-reload"}
+                ;; :figwheel {:on-jsload "sente-reagent-mount.core/on-figwheel-reload"}
 
-                :compiler {:main sente-reagent-2.core
+                :compiler {:main sente-reagent-mount.core
                            :asset-path "js/compiled/out"
-                           :output-to "resources/public/js/compiled/sente_reagent_2.js"
+                           :output-to "resources/public/js/compiled/sente_reagent_mount.js"
                            :output-dir "resources/public/js/compiled/out"
                            :source-map-timestamp true}}}}
 
@@ -102,7 +105,7 @@
                            {:source-paths ["src/cljs" "test/cljs"]
                             :compiler
                             {:output-to "resources/public/js/compiled/testable.js"
-                             :main sente-reagent-2.test-runner
+                             :main sente-reagent-mount.test-runner
                              :optimizations :none}}}}}
 
              :uberjar

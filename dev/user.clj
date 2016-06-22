@@ -1,5 +1,5 @@
 (ns user
-  (:require [sente-reagent-2.server]
+  (:require [sente-reagent-mount.server]
             [ring.middleware.reload :refer [wrap-reload]]
             [figwheel-sidecar.repl-api :as figwheel]))
 
@@ -9,7 +9,7 @@
 (set! *warn-on-reflection* true)
 (set! *unchecked-math* :warn-on-boxed)
 (def http-handler
-  (wrap-reload #'sente-reagent-2.server/http-handler))
+  (wrap-reload #'sente-reagent-mount.server/http-handler))
 
 (defn run []
   (figwheel/start-figwheel!))

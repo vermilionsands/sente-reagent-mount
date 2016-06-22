@@ -1,4 +1,4 @@
-# sente-reagent-2
+# sente-reagent-mount
 
 
 ## Development
@@ -36,13 +36,13 @@ and a REPL prompt that looks like `cljs.user=>`.
 Open `resources/public/css/style.css` and change some styling of the
 H1 element. Notice how it's updated instantly in the browser.
 
-Open `src/cljs/sente-reagent-2/core.cljs`, and change `dom/h1` to
+Open `src/cljs/sente-reagent-mount/core.cljs`, and change `dom/h1` to
 `dom/h2`. As soon as you save the file, your browser is updated.
 
 In the REPL, type
 
 ```
-(ns sente-reagent-2.core)
+(ns sente-reagent-mount.core)
 (swap! app-state assoc :text "Interactivity FTW")
 ```
 
