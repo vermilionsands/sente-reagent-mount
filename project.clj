@@ -47,7 +47,7 @@
                 ;; Alternatively, you can configure a function to run every time figwheel reloads.
                 ;; :figwheel {:on-jsload "sente-reagent-mount.core/on-figwheel-reload"}
 
-                :compiler {:main sente-reagent-mount.core
+                :compiler {:main sente-reagent-mount.main
                            :asset-path "js/compiled/out"
                            :output-to "resources/public/js/compiled/sente_reagent_mount.js"
                            :output-dir "resources/public/js/compiled/out"

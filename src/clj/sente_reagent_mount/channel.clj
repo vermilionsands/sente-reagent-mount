@@ -3,9 +3,7 @@
             [taoensso.sente.server-adapters.http-kit :refer (sente-web-server-adapter)]
             [mount.core :refer [defstate]]))
 
-; TODO
-; add callback on open connection
-; add periodic notification
+(declare channel)
 
 (defmulti event-msg-handler :id)
 
@@ -26,12 +24,16 @@
   ; close connection
   (println "Uidport closed"))
 
-(defmethod event-msg-handler :custom/event [{:as ev-msg :keys [event id ?data ring-req ?reply-fn send-fn]}]
+(defmethod event-msg-handler :custom/time [{:as ev-msg :keys [event id ?data ring-req ?reply-fn send-fn]}]
   (let [session (:session ring-req)
         uid     (:uid session)]
-    (println "Custom event: " event " from " session "/" uid)
+    (println "time call from " session "/" uid)
+    (swap! (:state channel) inc)
     (when ?reply-fn
-      (?reply-fn {:echo "echo"}))))
+      (?reply-fn (System/currentTimeMillis)))))
+
+(defmethod event-msg-handler :custom/call-count [{:keys [?reply-fn]}]
+  (when ?reply-fn (?reply-fn @(:state channel))))
 
 (defn init-channel! []
   (let [{:keys [ch-recv send-fn ajax-post-fn ajax-get-or-ws-handshake-fn
@@ -43,6 +45,5 @@
      :send-fn send-fn
      :router (sente/start-chsk-router! ch-recv event-msg-handler)}))
 
-; declare + dodac atom, jako mapa map?
-(defstate channel :start (init-channel!)
-                  :stop  ((:router channel)))
+(defstate channel :start {:channel (init-channel!) :state (atom 0)}
+                  :stop  ((:router (:channel channel))))

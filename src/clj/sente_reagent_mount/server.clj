@@ -18,8 +18,8 @@
 
 (defroutes routes
   (GET  "/" _ (main-page))
-  (GET  "/chsk" req ((:ring-ajax-get-or-ws-handshake channel/channel) req))
-  (POST "/chsk" req ((:ring-ajax-post-fn channel/channel) req))
+  (GET  "/chsk" req ((:ring-ajax-get-or-ws-handshake (:channel channel/channel)) req))
+  (POST "/chsk" req ((:ring-ajax-post-fn (:channel channel/channel)) req))
   (resources "/"))
 
 (def http-handler
