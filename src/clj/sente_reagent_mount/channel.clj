@@ -27,13 +27,8 @@
 (defmethod event-msg-handler :custom/time [{:as ev-msg :keys [event id ?data ring-req ?reply-fn send-fn]}]
   (let [session (:session ring-req)
         uid     (:uid session)]
-    (println "time call from " session "/" uid)
-    (swap! (:state channel) inc)
     (when ?reply-fn
       (?reply-fn (System/currentTimeMillis)))))
-
-(defmethod event-msg-handler :custom/call-count [{:keys [?reply-fn]}]
-  (when ?reply-fn (?reply-fn @(:state channel))))
 
 (defn init-channel! []
   (let [{:keys [ch-recv send-fn ajax-post-fn ajax-get-or-ws-handshake-fn
@@ -45,5 +40,5 @@
      :send-fn send-fn
      :router (sente/start-chsk-router! ch-recv event-msg-handler)}))
 
-(defstate channel :start {:channel (init-channel!) :state (atom 0)}
-                  :stop  ((:router (:channel channel))))
+(defstate channel :start (init-channel!)
+                  :stop  ((:router channel)))

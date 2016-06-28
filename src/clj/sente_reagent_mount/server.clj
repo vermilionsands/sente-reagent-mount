@@ -18,9 +18,10 @@
 
 (defroutes routes
   (GET  "/" _ (main-page))
-  (GET  "/chsk" req ((:ring-ajax-get-or-ws-handshake (:channel channel/channel)) req))
-  (POST "/chsk" req ((:ring-ajax-post-fn (:channel channel/channel)) req))
+  (GET  "/chsk" req ((:ring-ajax-get-or-ws-handshake channel/channel) req))
+  (POST "/chsk" req ((:ring-ajax-post-fn channel/channel) req))
   (resources "/"))
+
 
 (def http-handler
   (-> routes
@@ -40,4 +41,4 @@
   (println "Http-Kit server stopped"))
 
 (defstate server :start (start-server (:port mount/args))
-                 :stop  (stop-server server))
+                 :stop (stop-server server))

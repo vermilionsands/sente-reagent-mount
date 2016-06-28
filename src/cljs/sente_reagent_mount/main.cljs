@@ -5,8 +5,6 @@
 
 (enable-console-print!)
 
-(defonce app-state (reagent/atom {:text "Hello Chestnut!"}))
-
 (defn ^:export main []
   (mount/in-cljc-mode)
   (mount/start)
