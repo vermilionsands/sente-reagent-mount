@@ -1,7 +1,7 @@
 (ns sente-reagent-mount.state
   (:require [reagent.core :as reagent]))
 
-(defonce app-state (reagent/atom cljs.core.PersistentQueue.EMPTY))
+(defonce app-state (reagent/atom #queue []))
 
 (defn update-state! [msg t]
   (swap! app-state (fn [state v]

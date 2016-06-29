@@ -25,7 +25,7 @@
 
 (def http-handler
   (-> routes
-      (wrap-defaults api-defaults)
+      (wrap-defaults (merge api-defaults {:session true}))
       wrap-with-logger
       wrap-gzip))
 

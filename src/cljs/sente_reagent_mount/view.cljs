@@ -8,7 +8,7 @@
   ((send-fn) [:custom/time {}]
              1000
              (fn [rply]
-               (println "Current time: " rply)
+               (println "Current time server reply: " rply)
                (state/update-state! "Current time" rply))))
 
 (defn notification-area []
